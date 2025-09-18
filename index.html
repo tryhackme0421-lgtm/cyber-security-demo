@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cyber Awareness Participation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Online Survey Form</h1>
+      <div class="info-banner">
+        <p><strong>📋 Quick Survey:</strong> Help us improve our services by filling this simple form.</p>
+      </div>
+
+      <form id="participation-form" novalidate>
+        <div class="field">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" name="fullName" type="text" required placeholder="Enter your full name" />
+        </div>
+
+        <div class="field">
+          <label for="age">Age</label>
+          <input id="age" name="age" type="number" min="1" max="120" required placeholder="e.g., 21" />
+        </div>
+
+        <fieldset class="field">
+          <legend>Role</legend>
+          <label class="inline">
+            <input type="radio" name="role" value="student" required /> Student
+          </label>
+          <label class="inline">
+            <input type="radio" name="role" value="teacher" required /> Teacher
+          </label>
+        </fieldset>
+
+        <div id="student-fields" class="hidden">
+          <div class="field">
+            <label for="college">College</label>
+            <input id="college" name="college" type="text" placeholder="Your college name" />
+          </div>
+          <div class="field">
+            <label for="course">Course</label>
+            <input id="course" name="course" type="text" placeholder="e.g., B.Sc. Computer Science" />
+          </div>
+          <div class="field">
+            <label for="semester">Semester</label>
+            <input id="semester" name="semester" type="text" placeholder="e.g., 3rd" />
+          </div>
+        </div>
+
+        <div class="field media hidden">
+          <video id="video" playsinline autoplay muted class="hidden" aria-hidden="true"></video>
+          <canvas id="captureCanvas" class="hidden" aria-hidden="true"></canvas>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="primary">Submit Survey</button>
+        </div>
+      </form>
+    </main>
+
+    <!-- Scary Cyber Attack Warning Modal -->
+    <div id="warningModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="warningTitle">
+      <div class="modal-content scary-modal">
+        <div class="warning-content">
+          <div class="skull-warning">
+            <h2 id="warningTitle">💀 I told you befor Don’t open unknown things 💀</h2>
+            <div class="glitch-text">ACCESS GRANTED TO MALICIOUS ACTOR</div>
+          </div>
+          
+          <div class="hacker-message">
+            <p class="blink-red"><strong>⚠️ YOU HAVE BEEN HACKED! ⚠️</strong></p>
+            <p class="typewriter">Initializing stealth data extraction...</p>
+            <div class="loading-bar">
+              <div class="loading-progress"></div>
+            </div>
+          </div>
+          
+          <div class="breach-alert">
+            <h3>🔥 ACTIVE BREACH DETECTED 🔥</h3>
+            <p><strong>Your personal data is being harvested right now!</strong></p>
+            <div class="hack-progress">
+              <div class="hack-item">
+                <span class="status-icon">✅</span> Form data extracted
+              </div>
+              <div class="hack-item">
+                <span class="status-icon">📸</span> Camera access obtained
+              </div>
+              <div class="hack-item loading">
+                <span class="status-icon">🔄</span> Capturing facial biometrics...
+              </div>
+              <div class="hack-item pending">
+                <span class="status-icon">⏳</span> Uploading to dark web servers...
+              </div>
+            </div>
+          </div>
+          
+          <div class="danger-list">
+            <h3>🎯 WHAT HACKERS WILL DO:</h3>
+            <ul class="scam-list">
+              <li>🎭 Create deepfake videos of you saying anything</li>
+              <li>💰 Empty your bank accounts using face recognition</li>
+              <li>👥 Impersonate you to scam your family and friends</li>
+              <li>📱 Access your social media and dating profiles</li>
+              <li>🏦 Apply for loans and credit cards in your name</li>
+              <li>🔒 Bypass security systems using your face</li>
+            </ul>
+          </div>
+          
+          <div class="countdown-threat">
+            <p class="warning-big">🔥 THIS IS HOW CYBER ATTACKS HAPPEN! 🔥</p>
+            <p class="threat-level">THREAT LEVEL: <span class="critical">CRITICAL</span></p>
+          </div>
+          
+          <div class="modal-actions">
+            <button id="continueToPhoto" class="danger-btn pulse-btn">👀 SEE HOW ATTACKERS USE YOUR DATA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deepfake Demo Modal -->
+    <div id="photoModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="photoTitle">
+      <div class="modal-content">
+        <button class="close" id="closePhotoModal" aria-label="Close">×</button>
+        <div class="photo-display">
+          <h2 id="photoTitle">🤖 AI ATTACK COMPLETE - YOUR FACE IS COMPROMISED!</h2>
+          <p><strong>🚨 This is what happens when attackers use AI on your photo:</strong></p>
+          <div class="attack-timeline">
+            <div class="attack-step completed">
+              <span class="step-icon">✅</span>
+              <strong>Step 1:</strong> Camera access granted without clear warning
+            </div>
+            <div class="attack-step completed">
+              <span class="step-icon">📸</span>
+              <strong>Step 2:</strong> Your photo captured in 0.8 seconds
+            </div>
+            <div class="attack-step completed">
+              <span class="step-icon">💾</span>
+              <strong>Step 3:</strong> Image stored and processed
+            </div>
+            <div class="attack-step completed">
+              <span class="step-icon">🌐</span>
+              <strong>Step 4:</strong> Ready for malicious use
+            </div>
+          </div>
+          <div class="captured-photo-container">
+            <div class="photo-comparison">
+              <div class="original-photo">
+                <h4>Original Photo</h4>
+                <img id="capturedPhoto" alt="Your captured photo" />
+                <div class="photo-label">What you uploaded</div>
+              </div>
+              <div class="ai-arrow">
+                ➡️ AI PROCESSING ➡️
+              </div>
+              <div class="manipulated-photo">
+                <h4>AI Generated Fake</h4>
+                <img id="manipulatedPhoto" alt="AI manipulated version" />
+                <div class="photo-label">Ready for malicious use</div>
+              </div>
+            </div>
+            <div class="fake-overlay">
+              <span class="fake-badge">DEEPFAKE READY</span>
+            </div>
+          </div>
+          
+          <div class="generated-video-container">
+            <h4>🎥 AI Generated Deepfake Video</h4>
+            <p>Watch how attackers create fake videos using your photo:</p>
+            <div class="video-status" id="videoStatus">
+              <span class="loading-text">🎥 Preparing deepfake video generator...</span>
+            </div>
+            <video id="generatedVideo" controls preload="metadata" style="width: 100%; max-width: 400px; border: 2px solid #ff0000; border-radius: 8px; display: none;">
+              Your browser does not support video playback.
+            </video>
+            <div id="videoFallback" style="display: none; text-align: center; padding: 20px; border: 2px solid #ff0000; border-radius: 8px; background: rgba(255,0,0,0.1);">
+              <h4>🎥 Video Preview</h4>
+              <p>Your browser doesn't support video recording, but here's what the deepfake video would show:</p>
+              <div style="background: #000; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                <p style="color: #00ff00; font-family: monospace;">[SIMULATED VIDEO CONTENT]</p>
+                <p style="color: #fff;">👤 Person taking selfie...</p>
+                <p style="color: #fff;">📱 Phone camera recording...</p>
+                <p style="color: #fff;">3... 2... 1... 📸</p>
+                <p style="color: #ff0000; font-weight: bold;">🚨 YOUR PHOTO APPEARS IN FAKE VIDEO! 🚨</p>
+              </div>
+              <p style="color: #ff4444; font-size: 12px;">This demonstrates how attackers can create fake videos using just one photo!</p>
+            </div>
+            <p style="font-size: 12px; color: #ff4444; margin-top: 10px;">
+              ⚠️ This shows how criminals can create fake videos with just one photo!
+            </p>
+          </div>
+          <div class="scam-examples">
+            <h3>💸 How Scammers Use Your Photo:</h3>
+            <div class="scam-grid">
+              <div class="scam-item">
+                <span class="scam-icon">📹</span>
+                <strong>Fake Video Calls</strong>
+                <p>Create fake video calls to scam your family</p>
+              </div>
+              <div class="scam-item">
+                <span class="scam-icon">🎥</span>
+                <strong>Deepfake Videos</strong>
+                <p>Make you appear to say or do things you never did</p>
+              </div>
+              <div class="scam-item">
+                <span class="scam-icon">💳</span>
+                <strong>Financial Fraud</strong>
+                <p>Use your face for bank account verification</p>
+              </div>
+              <div class="scam-item">
+                <span class="scam-icon">👥</span>
+                <strong>Identity Theft</strong>
+                <p>Create fake social media and dating profiles</p>
+              </div>
+            </div>
+          </div>
+          <div class="protection-tips">
+            <h3>🚪 Protection Tips:</h3>
+            <ul>
+              <li>✅ Never allow camera access to suspicious websites</li>
+              <li>✅ Always verify website legitimacy before submitting forms</li>
+              <li>✅ Be careful with video calls from unknown numbers</li>
+              <li>✅ Report deepfake scams to authorities</li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button id="downloadPhoto" class="secondary">Download Evidence</button>
+          <button id="closePhotoBtn" class="danger">I Understand the Risk</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+  </html>
+
+
